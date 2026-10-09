@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block title %}FAQ — BlueCalc{% endblock %}{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">HELP CENTER</span><h1>Frequently asked questions</h1><p>Answers about the calculator, tools, privacy and how results are computed.</p></div></section>
+<section class="container narrow faq-list">
+{% for q,a in [
+('Is BlueCalc free to use?','Yes. The local version in this project is free to run and does not require an account.'),
+('Does the calculator support scientific functions?','Yes. It includes trigonometric and inverse trigonometric functions, logarithms, square roots, powers, factorials, constants and exponentials.'),
+('What is DEG versus RAD mode?','DEG interprets angles in degrees, while RAD interprets them in radians. For example, sin(90) is 1 in DEG mode but not in RAD mode.'),
+('Can I use my keyboard?','Yes. Type digits and operators, press Enter for an answer and Backspace to remove the last character.'),
+('Are calculations stored on a server?','No calculation database is included. The calculator runs in your browser. The history shown in the page is kept only while the page is open.'),
+('Are the math-tool results exact?','Results use JavaScript floating-point arithmetic. They are excellent for normal calculations, but very large numbers or extreme precision requirements may need specialized software.'),
+('Can I customize the site?','Yes. The Flask templates and CSS are intentionally straightforward, so you can change branding, colors, content and add database/email integrations.'),
+('Does the contact form send email?','The included demo endpoint validates the message but does not send email. Connect it to an email provider before production deployment.')
+] %}<details><summary>{{ q }}<span>+</span></summary><p>{{ a }}</p></details>{% endfor %}
+</section>{% endblock %}

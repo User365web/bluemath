@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BlueCalc is a fast online scientific calculator with math tools, unit conversion and practical guides.">
+  <title>{% block title %}BlueCalc — Scientific Calculator{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="/" aria-label="BlueCalc home"><span class="brand-mark">∑</span><span>BlueCalc</span></a>
+    <nav class="nav" id="mainNav">
+      <a href="/">Calculator</a><a href="/guides">Guides</a><a href="/faq">FAQ</a><a href="/contact">Contact</a>
+    </nav>
+    <button class="menu-btn" onclick="document.getElementById('mainNav').classList.toggle('open')">☰</button>
+  </div>
+</header>
+<main>{% block content %}{% endblock %}</main>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><a class="brand" href="/"><span class="brand-mark">∑</span><span>BlueCalc</span></a><p>Clear, practical tools for everyday mathematics and scientific calculations.</p></div>
+    <div><strong>Explore</strong><a href="/">Calculator</a><a href="/guides">Guides</a><a href="/faq">FAQ</a></div>
+    <div><strong>Legal</strong><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Use</a><a href="/contact">Contact</a></div>
+  </div>
+  <div class="container copyright">© 2026 BlueCalc. Built for learning and calculation.</div>
+</footer>
+<script src="{{ url_for('static', filename='site.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

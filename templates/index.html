@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Scientific Calculator Online — BlueCalc{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">FAST • FREE • PRACTICAL</span>
+      <h1>Scientific calculations,<br><span>made simple.</span></h1>
+      <p class="hero-copy">A modern scientific calculator plus practical math tools for algebra, statistics, percentages and unit conversions.</p>
+      <div class="hero-pills"><span>✓ No account</span><span>✓ Keyboard friendly</span><span>✓ DEG / RAD</span></div>
+    </div>
+    <div class="hero-card"><div class="mini-display">sin(45°) + √81</div><div class="mini-result">9.70710678</div><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<section class="container workspace" id="calculator">
+  <div class="section-heading"><div><span class="eyebrow">CALCULATOR</span><h2>Scientific calculator</h2></div><span class="status-dot">Ready</span></div>
+  <div class="calculator-layout">
+    <div class="calculator card">
+      <div class="calc-top"><div class="mode-toggle"><button class="active" data-angle="DEG">DEG</button><button data-angle="RAD">RAD</button></div><button class="ghost-btn" id="clearHistory">Clear history</button></div>
+      <div class="display"><div id="expression" class="expression">0</div><div id="result" class="result">0</div></div>
+      <div class="memory-row"><button data-action="mc">MC</button><button data-action="mr">MR</button><button data-action="mplus">M+</button><button data-action="mminus">M−</button><button data-action="ms">MS</button></div>
+      <div class="keypad">
+        <button class="fn" data-insert="sin(">sin</button><button class="fn" data-insert="cos(">cos</button><button class="fn" data-insert="tan(">tan</button><button class="fn" data-insert="log(">log</button><button class="fn" data-insert="ln(">ln</button>
+        <button class="fn" data-insert="asin(">sin⁻¹</button><button class="fn" data-insert="acos(">cos⁻¹</button><button class="fn" data-insert="atan(">tan⁻¹</button><button class="fn" data-insert="sqrt(">√</button><button class="fn" data-insert="^2">x²</button>
+        <button data-insert="7">7</button><button data-insert="8">8</button><button data-insert="9">9</button><button class="operator" data-insert="/">÷</button><button class="danger-soft" data-action="back">⌫</button>
+        <button data-insert="4">4</button><button data-insert="5">5</button><button data-insert="6">6</button><button class="operator" data-insert="*">×</button><button data-insert="(">(</button>
+        <button data-insert="1">1</button><button data-insert="2">2</button><button data-insert="3">3</button><button class="operator" data-insert="-">−</button><button data-insert=")">)</button>
+        <button data-insert="0">0</button><button data-insert=".">.</button><button data-insert="pi">π</button><button class="operator" data-insert="+">+</button><button class="equals" data-action="equals">=</button>
+        <button class="fn" data-insert="exp(">eˣ</button><button class="fn" data-insert="abs(">|x|</button><button class="fn" data-insert="fact(">x!</button><button class="fn" data-insert="10^">10ˣ</button><button class="fn" data-insert="e">e</button>
+      </div>
+    </div>
+    <aside class="history card"><div class="panel-title"><h3>Calculation history</h3><span id="historyCount">0</span></div><div id="historyList" class="history-list"><p class="muted">Your calculations will appear here.</p></div></aside>
+  </div>
+</section>
+
+<section class="container tools-section"><div class="section-heading"><div><span class="eyebrow">MATH TOOLS</span><h2>More than a calculator</h2></div></div>
+  <div class="tool-grid">
+    <div class="tool card"><div class="tool-icon">x²</div><h3>Quadratic solver</h3><p>Find the real or complex roots of ax² + bx + c = 0.</p><div class="inputs three"><input id="qa" type="number" placeholder="a"><input id="qb" type="number" placeholder="b"><input id="qc" type="number" placeholder="c"></div><button class="primary full" onclick="solveQuadratic()">Solve equation</button><div id="quadOut" class="tool-output"></div></div>
+    <div class="tool card"><div class="tool-icon">%</div><h3>Percentage calculator</h3><p>Calculate percentages, increases and decreases quickly.</p><div class="inputs"><input id="pctValue" type="number" placeholder="Value"><input id="pctRate" type="number" placeholder="Percent"></div><button class="secondary full" onclick="percentage()">Calculate</button><div id="pctOut" class="tool-output"></div></div>
+    <div class="tool card"><div class="tool-icon">σ</div><h3>Statistics</h3><p>Get mean, median, minimum, maximum and population standard deviation.</p><textarea id="statsValues" rows="2" placeholder="12, 15, 18, 20, 21"></textarea><button class="secondary full" onclick="statistics()">Analyze data</button><div id="statsOut" class="tool-output"></div></div>
+    <div class="tool card"><div class="tool-icon">↔</div><h3>Unit converter</h3><p>Convert common length, mass, area and temperature units.</p><div class="inputs"><input id="convValue" type="number" placeholder="Value"><select id="convFrom"><option>meters</option><option>kilometers</option><option>miles</option><option>feet</option><option>kilograms</option><option>pounds</option><option>celsius</option><option>fahrenheit</option></select></div><div class="inputs"><select id="convTo"><option>feet</option><option>meters</option><option>kilometers</option><option>miles</option><option>pounds</option><option>kilograms</option><option>fahrenheit</option><option>celsius</option></select><button class="secondary" onclick="convertUnits()">Convert</button></div><div id="convOut" class="tool-output"></div></div>
+  </div>
+</section>
+
+<section class="container feature-strip"><div><span class="eyebrow">LEARN AS YOU CALCULATE</span><h2>Understand the math behind the answer.</h2><p>Use the guides to learn formulas, common mistakes and practical examples for the same tools available above.</p></div><a class="primary" href="/guides">Browse guides →</a></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='calculator.js') }}"></script>{% endblock %}
