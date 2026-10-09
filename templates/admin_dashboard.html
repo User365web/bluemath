@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Contact Messages — BlueMath Admin{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container admin-heading"><div><span class="eyebrow">PRIVATE ADMIN</span><h1>Contact messages</h1><p>Review feedback and suggestions sent by visitors to BlueMath.</p></div><form method="post" action="{{ url_for('admin_logout') }}"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"><button class="secondary" type="submit">Sign out</button></form></div></section>
+<section class="container admin-content">
+  {% for category, message in get_flashed_messages(with_categories=true) %}<div class="admin-alert {{ category }}">{{ message }}</div>{% endfor %}
+  <div class="admin-stats"><div class="card admin-stat"><span>Total messages</span><strong>{{ total_count }}</strong></div><div class="card admin-stat"><span>Unread messages</span><strong>{{ unread_count }}</strong></div></div>
+  <div class="admin-toolbar"><h2>Inbox</h2><div class="admin-filters"><a class="secondary {% if view != 'unread' %}selected{% endif %}" href="{{ url_for('admin_dashboard', view='all') }}">All messages</a><a class="secondary {% if view == 'unread' %}selected{% endif %}" href="{{ url_for('admin_dashboard', view='unread') }}">Unread only</a></div></div>
+  {% if not messages %}<div class="card admin-empty"><h3>No messages here yet</h3><p>When someone submits the public contact form, the message will appear in this inbox.</p></div>{% else %}
+    <div class="admin-message-list">
+    {% for item in messages %}
+      <article class="card admin-message {% if not item.is_read %}unread{% endif %}">
+        <div class="admin-message-top"><div><h3>{{ item.name }} {% if not item.is_read %}<span class="admin-unread-pill">Unread</span>{% endif %}</h3><a href="mailto:{{ item.email }}">{{ item.email }}</a></div><time>{{ item.created_at.strftime('%Y-%m-%d %H:%M UTC') if item.created_at else '' }}</time></div>
+        <p class="admin-message-body">{{ item.message }}</p>
+        <div class="admin-message-actions">
+          <form method="post" action="{{ url_for('admin_mark_read', message_id=item.id) }}"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="view" value="{{ view }}"><button class="secondary" type="submit">Mark as {{ 'unread' if item.is_read else 'read' }}</button></form>
+          <form method="post" action="{{ url_for('admin_delete_message', message_id=item.id) }}" onsubmit="return confirm('Delete this message permanently?');"><input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="view" value="{{ view }}"><button class="admin-delete" type="submit">Delete</button></form>
+        </div>
+      </article>
+    {% endfor %}
+    </div>
+    {% if total_count > 200 %}<p class="muted">Showing up to 200 messages at a time. Older messages remain stored.</p>{% endif %}
+  {% endif %}
+</section>
+{% endblock %}
